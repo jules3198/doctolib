@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from accounts import forms
+from  django.contrib.auth import login,logout, authenticate
 
 @login_required(login_url="login/")
 
@@ -30,23 +31,23 @@ def register(request):
 		messages.error(request, 'You Are logged In')
 		return redirect('/')
 
+def login_user(request):
+    form = forms.LoginForm()
+    message = ''
+    if request.method == 'POST':
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+            )
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+        message = 'Invalid email or password'
+    return render(request, "login.html", context={'form': form, 'message': message})
 
-def change_password(request):
-	if request.user.is_authenticated:
-		if request.method == 'POST':
-			form = PasswordChangeForm(request.user, request.POST)
-			if form.is_valid():
-				user = form.save()
-				update_session_auth_hash(request, user)
-				messages.success(request, 'Your password was successfully updated!')
-				return redirect('/')
-			else:
-				messages.error(request, 'Please correct the error below.')
-		else:
-			form = PasswordChangeForm(request.user)
-		return render(request, 'App/change_password.html', {
-			'form': form
-		})
-	else:
-		messages.error(request, 'You Are not logged In')
-		return redirect('/')
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+

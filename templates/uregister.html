@@ -1,13 +1,58 @@
-<html>
- <body>
-    <div class="container py-5">
-        <h1>Register</h1>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form }}                    
-            <button class="btn btn-primary" type="submit">Register</button>
-        </form>
-        <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Register</h3>
+                </div>
+                <div class="panel-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p class="bs-component">
+                            <table>
+                                <tr>
+                                    <td>{{ form.username.label_tag }}</td>
+                                    <td>{{ form.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ form.first_name.label_tag }}</td>
+                                    <td>{{ form.first_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ form.last_name.label_tag }}</td>
+                                    <td>{{ form.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ form.email.label_tag }}</td>
+                                    <td>{{ form.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ form.password1.label_tag }}</td>
+                                    <td>{{ form.password1 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ form.password2.label_tag }}</td>
+                                    <td>{{ form.password2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ form.role.label_tag }}</td>
+                                    <td>{{ form.role }}</td>
+                                </tr>
+                            </table>
+                        </p>
+                        <p class="bs-component">
+                                <input class="btn btn-success btn-sm" type="submit" value="Register" />
+                        </p>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </form>
+                    <p class="text-center">If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
     </div>
- </body>
-</html>
+</div>
+{% endblock %}

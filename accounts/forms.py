@@ -10,4 +10,9 @@ class NewUserForm(UserCreationForm):
 
 	class Meta:
 		model = models.CustomUser
-		fields = ('first_name','last_name','email','role')
+		fields = ('username','first_name','last_name','email','role')
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=63,label="username")
+    password = forms.CharField(max_length=63,widget=forms.PasswordInput,label="password")
