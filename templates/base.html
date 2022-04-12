@@ -18,15 +18,20 @@
           </button>
           <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Link</a>
-              </li>
               {% if  user.role == 'PATIENT' %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'appointment:next' %}">Next Appointment</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link"href="{% url 'appointment:past' %}">Past Appointment</a>
+                    </li>
+             {% endif %}
+             {% if  user.role == 'PRATICIENT' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'appointment:appointment-manager' %}">Appointment Manager</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link"href="{% url 'appointment:validate-doctor' %}">Validate account</a>
                     </li>
              {% endif %}
             </ul>
@@ -37,6 +42,13 @@
                         </li>
                 </ul>
             {% endif %}
+            {% if not user.is_authenticated %}
+            <ul class="d-flex">
+                <li class="nav-item">
+                    <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+                    </li>
+            </ul>
+        {% endif %}
           </div>
         </div>
       </nav>

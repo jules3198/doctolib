@@ -36,13 +36,15 @@
                 </thead>
                 <tbody>
                     {% for x in apts %}
-                    <tr>
-                        <td>{{x.start_time}}</td>
-                        <td>{{x.end_time}}</td>
-                        <td>{{x.created_at}}</td>
-                        <td><button  id="button" name="delete" > X </button></td>
-                      </tr>
-                    {% endfor %}
+                    <tr id="appointment_{{ x.id }}">
+                        <td>{{ x.start_time }}</td>
+                        <td>{{ x.end_time }}</td>
+                        <td>{{ x.created_at }}</td>
+                        <td>
+                            <button value="{{ x.id }}" id="button" class="btn btn-danger"name="delete"> X</button>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
             </div>
@@ -50,4 +52,19 @@
         <div class="col-md-2"></div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $("button").click(function (e) {
+        var id = $(this).val();
+        e.preventDefault();
+        $.ajax({
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            type: "POST",
+            url: "/appointment/appointment-delete/"+$(this).val(),
+            success: function (result) {
+                 $("#appointment_"+id).css("display", "none");
+            }
+        });
+    });
+</script>
 {% endblock %}

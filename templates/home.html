@@ -14,7 +14,7 @@
     
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
                                 <input type="text" id="location" name="location"
-                                       class="form-control form-control-lg" placeholder="Any Location ?  Ex : Uttara, Dhaka">
+                                       class="form-control form-control-lg" placeholder="Any Location ?  Ex :Paris">
                             </div>
     
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
@@ -44,14 +44,23 @@
                 </div>
                 <div class="row">
 
-
                     {% for apt in appointments %}
+
+                        <div class="col-md-3">
+                            <div class="card" style="width: 98%;margin-top: 5px;padding: 5px">
+                                <span>Firstname: {{ apt.praticient.praticient.first_name }}</span>
+                                <span>Lastname: {{ apt.praticient.praticient.last_name }}</span>
+                                <span>Location: {{ apt.praticient.location }}</span>
+                                <span>start time: {{ apt.start_time }}</span>
+                                <span>end time: {{ apt.end_time }}</span>
+                                <p>
+                                    <a href="{% url 'appointment:take-appointment' apt.id %}"> Take
+                                    Appointment</a>
+                                 </p>
+                            </div>
+                        </div>
                         <!-- Single Dentist Area -->
-                        <p>{{ apt.praticient.praticient.username }}</p>
-                        <p>
-                            <a href="{% url 'appointment:take-appointment' apt.id %}"> Take
-                            Appointment</a>
-                            </p>
+                
                     {% endfor %}
                     
             </div>

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Appointment,TakeAppointment,ValidadeDoctor
 from .forms import ValidadeDoctorForm
+from django.http import HttpResponse
+import json
 
 def past(request):
     arr = ["a","b","c","d","e","f","g","h"]
@@ -101,4 +103,27 @@ def validateDoctor(request):
         else:
             return render(request, "access_denied.html")
 
-        
+
+# def deleteAppointment(request,id):
+#     praticient = request.user
+#     if not praticient.is_authenticated:
+#         return redirect('/accounts/login')
+#     else:
+#         if praticient.role == 'PRATICIENT':
+#             validate = ValidadeDoctor.objects.get(praticient__id=praticient.id)
+#             appointment = Appointment.objects.get(id=id,praticient__id=validate.id)
+#             if appointment is not None:
+#                 Appointment.objects.get(id=appointment.id).delete()
+#     return redirect('/appointment/appointment-manager')    
+
+def appointment_delete(request,id):
+    praticient = request.user
+    if not praticient.is_authenticated:
+        return redirect('/accounts/login')
+    else:
+        if praticient.role == 'PRATICIENT':
+            apt = Appointment.objects.get(id=id)
+            apt.delete()
+            return HttpResponse(json.dumps({'success': True}), content_type="application/json")
+        else:
+            return HttpResponse(json.dumps({'success': False}), content_type="application/json")

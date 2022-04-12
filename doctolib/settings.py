@@ -129,3 +129,5 @@ STATICFILES_DIRS = [
 STATIC_ROOT = "/static/"
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+LOGOUT_REDIRECT_URL = "/"
