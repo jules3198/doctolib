@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Past</h3>
+                </div>
+                
+            </div>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Praticient</th>
+                    <th>Location</th>
+                    <th>Appointment Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for x in appointments %}
+                    <tr>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                        <td>john@example.com</td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+{% endblock %}

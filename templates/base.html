@@ -10,27 +10,37 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="/home">home</a>
-                            </li>
-                            {% if user.is_authenticated %}
-                            <li class="divider"></li>
-                            <li>
-                                <a href="/logout">Logout</a>
-                            </li>
-                            {% endif %}
-                        </ul>
+          <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">Link</a>
+              </li>
+              {% if  user.role == 'PATIENT' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'next' %}">Next Appointment</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link"href="{% url 'past' %}">Past Appointment</a>
+                    </li>
+             {% endif %}
+            </ul>
+            {% if  user.is_authenticated %}
+                <ul class="d-flex">
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+                        </li>
                 </ul>
-            </div>
+            {% endif %}
+          </div>
         </div>
-    </nav>
+      </nav>
+      
 
     {% block content %} {% endblock %}
     <!-- Core Scripts - Include with every page -->
