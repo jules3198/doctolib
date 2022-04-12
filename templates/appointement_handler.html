@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Appointment Manager</h3>
+                </div>
+                {% if message %}
+                    <p>{{message}}</p>
+                {% endif %}
+                <div class="panel-body">
+                    <form method="post" action="{% url 'appointment:appointment-manager' %}">
+                        {% csrf_token %}
+                        <span>Start time</span>
+                        <input type="datetime-local" name="start_time" class="form-control"/>
+                        <span>End time</span>
+                        <input type="datetime-local" name="end_time" class="form-control"/>
+                        <p class="bs-component" style="margin-top: 10px">
+                                <input class="btn btn-success btn-sm" type="submit" value="Add" />
+                        </p>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </form>
+                </div>
+            </div>
+            <div >
+                <h4>Vos crenaux ouvert</h4>
+                <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Debut</th>
+                    <th>Fin</th>
+                    <th>Date de creation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for x in apts %}
+                    <tr>
+                        <td>{{x.start_time}}</td>
+                        <td>{{x.end_time}}</td>
+                        <td>{{x.created_at}}</td>
+                        <td><button  id="button" name="delete" > X </button></td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock %}

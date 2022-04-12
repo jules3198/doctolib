@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 ">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Home</h3>
+                </div>
+                <div >
+                    <form id="job-main-form" method="get" action="{% url 'appointment:search' %}">
+                        {% csrf_token %}
+                        <div class="row mb-5">
+    
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                                <input type="text" id="location" name="location"
+                                       class="form-control form-control-lg" placeholder="Any Location ?  Ex : Uttara, Dhaka">
+                            </div>
+    
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
+    
+    
+                                <select id="department" name="department" class="form-control">
+                                    <option style="display: none;" >Select Your Service</option>
+                                    <option>Cardiology</option>
+                                    <option>Dentistry</option>
+                                    <option>ENT Specialists</option>
+                                    <option>Astrology</option>
+                                    <option>Neuroanatomy</option>
+                                    <option>Blood Screening</option>
+                                    <option>Eye Care</option>
+                                    <option>Physical Therapy</option>
+                                </select>
+                            </div>
+    
+    
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block text-black btn-search"><span
+                                        class="icon-search icon mr-2"></span>Search Doctor
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+
+
+                    {% for apt in appointments %}
+                        <!-- Single Dentist Area -->
+                        <p>{{ apt.praticient.praticient.username }}</p>
+                        <p>
+                            <a href="{% url 'appointment:take-appointment' apt.id %}"> Take
+                            Appointment</a>
+                            </p>
+                    {% endfor %}
+                    
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+{% endblock %}

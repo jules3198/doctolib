@@ -1,16 +1,37 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Next</h3>
                 </div>
-                
             </div>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Debut</th>
+                    <th>Fin</th>
+                    <th>Location</th>
+                    <th>Nom praticient</th>
+                    <th>Spécialité</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for x in appointments %}
+                    <tr>
+                        <td>{{x.appointment.start_time}}</td>
+                        <td>{{x.appointment.end_time}}</td>
+                        <td>{{x.appointment.praticient.location}}</td>
+                        <td>{{x.appointment.praticient.praticient.first_name}} {{x.appointment.praticient.praticient.last_name}}</td>
+                        <td>{{x.appointment.praticient.department}}</td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-1"></div>
     </div>
 </div>
 {% endblock %}
